@@ -4,12 +4,9 @@
 <meta charset="UTF-8">
 <title>Grand Plaza Hotel</title>
 </head>
-
 <body>
-
 <header>
     <h1 align="center">Grand Plaza Hotel</h1>
-
     <nav align="center">
         <a href="#">Home</a> |
         <a href="#">Rooms</a> |
@@ -18,13 +15,10 @@
     </nav>
     <hr>
 </header>
-
 <main>
-
 <!-- ROOM SECTION -->
 <section>
     <h2 align="center">Select Your Room</h2>
-
     <table width="100%" border="1" cellpadding="10">
         <tr>
             <th>Room</th>
@@ -32,7 +26,6 @@
             <th>Amenities</th>
             <th>Price</th>
         </tr>
-
        <tr>
             <td>Dormetry</td>
             <td>
@@ -61,7 +54,6 @@
             </td>
             <td>₹1500 / night</td>
         </tr>
-
         <tr>
             <td>Superior Room</td>
             <td>
@@ -76,7 +68,6 @@
             </td>
             <td>₹2500 / night</td>
         </tr>
-
         <tr>
             <td>Executive Suite</td>
             <td>
@@ -93,37 +84,28 @@
         </tr>
     </table>
 </section>
-
 <br><hr><br>
-
 <!-- BOOKING SECTION -->
 <section>
     <h2 align="center">Book Your Room</h2>
-
     <form onsubmit="return calculatePrice()">
-
         <table align="center" border="1" cellpadding="10">
-
             <tr>
                 <td>Name:</td>
                 <td><input type="text" required></td>
             </tr>
-
             <tr>
                 <td>Email:</td>
                 <td><input type="email" required></td>
             </tr>
-
             <tr>
                 <td>Check-in:</td>
                 <td><input type="date" id="checkin" required></td>
             </tr>
-
             <tr>
                 <td>Check-out:</td>
                 <td><input type="date" id="checkout" required></td>
             </tr>
-
             <tr>
                 <td>Select Room:</td>
                 <td>
@@ -134,106 +116,77 @@
                     </select>
                 </td>
             </tr>
-
             <tr>
                 <td colspan="2" align="center">
                     <h3 id="total">Total Price: ₹0</h3>
                 </td>
             </tr>
-
             <tr>
                 <td colspan="2" align="center">
                     <button type="submit">Generate Bill & QR</button>
                 </td>
             </tr>
-
         </table>
-
     </form>
 </section>
-
 <br><hr><br>
-
 <!-- PAYMENT SECTION -->
 <section>
     <h2 align="center">Online Payment (UPI)</h2>
-
     <article>
         <table align="center" border="1" cellpadding="10">
-
             <tr>
                 <td align="center">
                     <h3>Scan QR Code</h3>
-
                     <!-- AUTO QR IMAGE -->
                     <img id="qrImage" src="" alt="QR Code"><br><br>
-
                     <p><b>UPI ID:</b> grandplaza@upi</p>
                     <p id="payAmount">Amount: ₹0</p>
                 </td>
             </tr>
-
             <tr>
                 <td>
-                    <label>Enter Transaction ID:</label><br><br>
+                   <label>Enter Transaction ID:</label><br><br>
                     <input type="text" placeholder="Enter UPI Transaction ID" required>
                 </td>
             </tr>
-
             <tr>
                 <td align="center">
                     <button onclick="paymentSuccess()">Confirm Payment</button>
                 </td>
             </tr>
-
         </table>
     </article>
 </section>
-
 </main>
-
 <footer>
     <hr>
     <p align="center">© 2026 Grand Plaza Hotel</p>
 </footer>
-
 <!-- SCRIPT -->
 <script>
 function calculatePrice() {
-
     let checkin = new Date(document.getElementById("checkin").value);
     let checkout = new Date(document.getElementById("checkout").value);
     let price = document.getElementById("room").value;
-
     let days = (checkout - checkin) / (1000 * 60 * 60 * 24);
-
     if (days > 0) {
-
         let total = days * price;
-
-        // SHOW TOTAL
         document.getElementById("total").innerText = "Total Price: ₹" + total;
         document.getElementById("payAmount").innerText = "Amount: ₹" + total;
-
         // 🔥 AUTO QR GENERATION WITH AMOUNT
         let upiLink = "upi://pay?pa=grandplaza@upi&pn=GrandPlazaHotel&am=" + total + "&cu=INR";
-
         let qrURL = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(upiLink);
-
         document.getElementById("qrImage").src = qrURL;
-
     } else {
         alert("Please select valid dates");
         return false;
     }
-
     return false;
 }
-
 function paymentSuccess() {
     alert("Payment Successful ✅ Booking Confirmed!");
 }
 </script>
-
 </body>
 </html>
